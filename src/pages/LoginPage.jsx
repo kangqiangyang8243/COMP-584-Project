@@ -4,9 +4,9 @@ function LoginPage() {
   return (
     <div className="w-full bg-gray-100 h-screen flex items-center justify-center bg-login bg-no-repeat bg-cover bg-center bg-fixed relative">
       <a href="/register">
-        <button className=" absolute top-0 right-0 py-3  mr-10 mt-5 px-4 rounded-lg text-white ml-10 font-bold bg-green-600 hover:bg-green-500 active:bg-green-400">
+        <div className=" absolute top-10 right-10 py-3  px-4 rounded-lg text-white ml-10 font-bold bg-green-600 hover:bg-green-500 active:bg-green-400">
           Register
-        </button>
+        </div>
       </a>
       <div className="max-w-7xl mx-auto w-full p-4 flex flex-col items-center">
         <div className="w-full  ">

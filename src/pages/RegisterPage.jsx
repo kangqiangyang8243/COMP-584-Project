@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { AiFillPicture } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 function RegisterPage() {
   const [file, setFile] = useState("");
   return (
     <div className="w-full bg-gray-100 h-screen relative flex flex-col items-center justify-center bg-register bg-no-repeat bg-cover bg-center bg-fixed gap-5">
       <a href="/login">
-        <button className="absolute top-0 right-0 py-3  mr-10 mt-5 px-4 rounded-lg text-white ml-10 font-bold bg-red-400 hover:bg-red-500 active:bg-red-600">
+        <div className=" absolute top-10 right-10 py-3  px-4 rounded-lg text-white ml-10 font-bold bg-red-600 hover:bg-red-500 active:bg-red-400">
           Login
-        </button>
+        </div>
       </a>
 
       <div className="max-w-7xl mx-auto w-full p-4 flex flex-col items-center">
