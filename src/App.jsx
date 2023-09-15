@@ -13,9 +13,9 @@ function App() {
         <Route path="/" element={<LayoutPage />}>
           <Route index element={<Homepage />} />
           <Route path="post" element={<PostPage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegisterPage />} />
         </Route>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </BrowserRouter>
   );
