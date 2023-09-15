@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Homepage from "./pages/Homepage";
+import PostPage from "./pages/PostPage";
 
 function App() {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/post" element={<PostPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
