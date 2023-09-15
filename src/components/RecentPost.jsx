@@ -8,7 +8,7 @@ function RecentPost() {
       </h3>
 
       <div className="flex flex-col gap-4 cursor-pointer ">
-        <div className="flex items-center gap-1 hover:shadow-md rounded-lg p-2 transform duration-100 ease-linear">
+        <div className="flex items-center gap-3 hover:shadow-md rounded-lg p-2 transform duration-100 ease-linear">
           <img
             className="w-12 h-12 lg:w-16 lg:h-16 rounded-full"
             src="../../public/1321.jpg"
@@ -22,7 +22,7 @@ function RecentPost() {
           </div>
         </div>
 
-        <div className="flex items-center gap-1 cursor-pointer hover:shadow-md rounded-lg p-2 transform duration-100 ease-linear">
+        <div className="flex items-center gap-3 cursor-pointer hover:shadow-md rounded-lg p-2 transform duration-100 ease-linear">
           <img
             className="w-12 h-12 lg:w-16 lg:h-16 rounded-full"
             src="../../public/1321.jpg"

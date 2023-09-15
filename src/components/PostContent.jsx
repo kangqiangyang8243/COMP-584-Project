@@ -3,7 +3,7 @@ import { AiFillCalendar } from "react-icons/ai";
 
 function PostContent() {
   return (
-    <div className="shadow-md  rounded-lg flex flex-col gap-10 p-5 cursor-pointer ">
+    <div className=" flex flex-col gap-10 p-5 cursor-pointer ">
       <img
         src="../../public/1321.jpg"
         className="w-full  object-cover  "
