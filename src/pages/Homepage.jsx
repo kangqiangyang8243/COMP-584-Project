@@ -9,7 +9,6 @@ import CardView from "../components/cardView";
 function Homepage() {
   return (
     <div className="max-w-7xl mx-auto flex flex-col gap-4">
-      <Header />
       <CardView />
 
       <div className="flex flex-col-reverse   lg:grid grid-cols-5 gap-5 m-2">

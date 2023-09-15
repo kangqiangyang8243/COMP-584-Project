@@ -7,8 +7,6 @@ import PostContent from "../components/PostContent";
 function PostPage() {
   return (
     <div className="max-w-7xl mx-auto flex flex-col ">
-      <Header />
-
       <div className="flex flex-col   lg:grid grid-cols-6 gap-5">
         <div className="col-span-4 ">
           <PostContent />
