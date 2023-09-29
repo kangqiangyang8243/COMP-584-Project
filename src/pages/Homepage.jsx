@@ -1,45 +1,76 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/header";
 import H_Post from "../components/H_Post";
-
 import RecentPost from "../components/RecentPost";
 import Categories from "../components/Categories";
 import CardView from "../components/cardView";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 function Homepage() {
   const [posts, SetPosts] = useState();
-  const [Cuser, setCUser] = useState();
+  const [catposts, SetCatPosts] = useState();
+
+  const [searchParams] = useSearchParams();
+  const { search } = useLocation();
+
+  let query = searchParams.get("catName");
+
+  // console.log(searchParams.get("catName"));
+  // console.log(search);
 
   useEffect(() => {
-    const users = JSON.parse(localStorage.getItem(import.meta.env.VITE_TOKEN));
-
     const fetchPost = async () => {
       const res = await axios.get(import.meta.env.VITE_API_URL + "/posts/");
 
       // console.log(res);
       SetPosts(res.data);
     };
-    setCUser(users);
 
     fetchPost();
   }, []);
 
-  // console.log(Cuser);
+  useEffect(() => {
+    const fetchCatPost = async () => {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + "/posts/" + search
+      );
+
+      // console.log(res);
+      SetCatPosts(res.data);
+    };
+
+    fetchCatPost();
+  }, [search]);
 
   // console.log(posts);
   return (
     <div className="max-w-7xl mx-auto flex flex-col gap-4">
-      <CardView />
+      <div className="flex flex-row items-center gap-3 overflow-x-scroll px-5 py-3 pb-10 border-b-2">
+        {posts
+          ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          ?.map((post) => (
+            <CardView key={post?._id} posts={post} />
+          ))}
+      </div>
 
-      <div className="flex flex-col-reverse   lg:grid grid-cols-5 gap-5 m-2">
-        <div className="col-span-4 lg:col-span-3 overflow-hidden ">
-          {posts
-            ?.sort((a, b) => b.createdAt - a.createdAt)
-            ?.map((post) => (
-              <H_Post key={post?._id} posts={post} user={Cuser} />
-            ))}
+      <div className="lg:grid grid-cols-5">
+        <div className="col-span-3">
+          <h3 className=" text-2xl md:text-4xl px-5 py-10 font-serif">
+            Search:{" "}
+            <span className="font-semibold underline underline-offset-8 text-3xl md:text-5xl">
+              {query ? query : `Newest`}
+            </span>
+          </h3>
+
+          <div className="flex flex-col-reverse    gap-5 m-2">
+            <div className="col-span-4 lg:col-span-3 overflow-hidden ">
+              {catposts
+                ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                ?.map((post) => (
+                  <H_Post key={post?._id} posts={post} />
+                ))}
+            </div>
+          </div>
         </div>
         <div className="col-span-2 ">
           <div className="gap-5 flex flex-col lg:gap-10 sticky top-[10px]">

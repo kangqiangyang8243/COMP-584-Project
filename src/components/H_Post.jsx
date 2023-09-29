@@ -4,20 +4,41 @@ import { AiFillCalendar } from "react-icons/ai";
 import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
 
-function H_Post({ posts, user }) {
+function H_Post({ posts }) {
+  const [user, setUser] = useState();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/users/${posts?.userId}`
+      );
+
+      // console.log(res.data);
+      setUser(res.data);
+    };
+
+    fetchUser();
+  }, [posts]);
+
+  // console.log(user);
   // console.log(posts);
   const handleChange = () => {
     navigate(`post/${posts?._id}`);
   };
+
   return (
     <div
       onClick={handleChange}
-      className="shadow-md  hover:shadow-xl  rounded-lg flex flex-col gap-5 p-5 cursor-pointer hover:scale-110 transform duration-150 ease-linear"
+      className="shadow-md mb-10 hover:shadow-xl bg-slate-50  rounded-lg flex flex-col gap-5 p-5 cursor-pointer hover:scale-110 transform duration-150 ease-linear"
     >
       <div key={posts?._id}>
-        <img src={posts?.img} className="w-full  object-cover " alt="" />
-        <div className="flex flex-col items-center gap-4">
+        <img
+          src={posts?.img}
+          className="w-full h-[200px] md:h-[400px]  object-cover "
+          alt=""
+        />
+        <div className="flex flex-col items-center gap-4 md:gap-7 mt-3">
           <h3 className="font-semibold text-xl text-center lg:text-[30px]">
             {posts?.title}
           </h3>

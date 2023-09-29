@@ -25,12 +25,12 @@ function Categories() {
       </h3>
       <ul className="p-1 flex flex-col gap-5 text-lg text-gray-500">
         {Cats?.map((category) => (
-          <li
-            key={category._id}
-            className="border-b pb-1 hover:text-gray-700 cursor-pointer  transform duration-100 ease-linear hover:border-gray-700"
-          >
-            {category?.title}
-          </li>
+          <a href={`/?catName=${category?.title}`} key={category._id}>
+            {" "}
+            <li className="border-b pb-1 hover:text-gray-700 cursor-pointer  transform duration-100 ease-linear hover:border-gray-700">
+              {category?.title}
+            </li>
+          </a>
         ))}
       </ul>
     </div>
