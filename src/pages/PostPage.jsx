@@ -7,7 +7,20 @@ import axios from "axios";
 
 function PostPage() {
   const { id } = useParams();
+  const [posts, SetPosts] = useState();
+
   const [post, setPost] = useState();
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const res = await axios.get(import.meta.env.VITE_API_URL + "/posts/");
+
+      // console.log(res);
+      SetPosts(res.data);
+    };
+
+    fetchPost();
+  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -30,7 +43,17 @@ function PostPage() {
         </div>
         <div className="col-span-2 mt-5">
           <div className="gap-5 flex flex-col lg:gap-10 sticky top-[10px]">
-            <RecentPost />
+            <div className="p-4 rounded-md shadow-md flex flex-col gap-5">
+              <h3 className="text-lg lg:text-2xl font-semibold pb-2 border-b ">
+                Recent Post
+              </h3>
+
+              {posts
+                ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                ?.map((post) => (
+                  <RecentPost key={post?._id} posts={post} />
+                ))}
+            </div>
 
             <Categories />
           </div>

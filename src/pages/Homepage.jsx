@@ -74,7 +74,17 @@ function Homepage() {
         </div>
         <div className="col-span-2 ">
           <div className="gap-5 flex flex-col lg:gap-10 sticky top-[10px]">
-            <RecentPost />
+            <div className="p-4 rounded-md shadow-md flex flex-col gap-5">
+              <h3 className="text-lg lg:text-2xl font-semibold pb-2 border-b ">
+                Recent Post
+              </h3>
+
+              {posts
+                ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                ?.map((post) => (
+                  <RecentPost key={post?._id} posts={post} />
+                ))}
+            </div>
 
             <Categories />
           </div>
