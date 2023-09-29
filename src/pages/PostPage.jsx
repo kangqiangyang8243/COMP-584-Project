@@ -3,8 +3,11 @@ import Header from "../components/header";
 import RecentPost from "../components/RecentPost";
 import Categories from "../components/Categories";
 import PostContent from "../components/PostContent";
+import { useParams } from "react-router-dom";
 
 function PostPage() {
+  const { id } = useParams();
+  console.log(id);
   return (
     <div className="max-w-7xl mx-auto flex flex-col ">
       <div className="flex flex-col   lg:grid grid-cols-6 gap-5">

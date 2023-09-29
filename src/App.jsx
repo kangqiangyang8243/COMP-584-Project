@@ -7,6 +7,7 @@ import RegisterPage from "./pages/RegisterPage";
 import LayoutPage from "./pages/LayoutPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CreatePostPage from "./pages/CreatePostPage";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LayoutPage />}>
           <Route index element={<Homepage />} />
-          <Route path="post" element={<PostPage />} />
+          <Route path="post/:id" element={<PostPage />} />
+          <Route path="createpost" element={<CreatePostPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

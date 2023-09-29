@@ -1,6 +1,22 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 function Categories() {
+  const [Cats, setCats] = useState();
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const category = await axios
+        .get(import.meta.env.VITE_API_URL + "/category/getCat")
+        .then((res) => setCats(res.data.category));
+
+      return category;
+    };
+
+    fetchCategories();
+  }, []);
+
+  // console.log(Cats);
   return (
     <div className="p-4 rounded-md shadow-md flex flex-col gap-5">
       {" "}
@@ -8,15 +24,14 @@ function Categories() {
         Category
       </h3>
       <ul className="p-1 flex flex-col gap-5 text-lg text-gray-500">
-        <li className="border-b pb-1 hover:text-gray-700 cursor-pointer  transform duration-100 ease-linear hover:border-gray-700">
-          Web Project
-        </li>
-        <li className="border-b pb-1 hover:text-gray-700 cursor-pointer  transform duration-100 ease-linear hover:border-gray-700">
-          Code learning
-        </li>
-        <li className="border-b pb-1 hover:text-gray-700 cursor-pointer  transform duration-100 ease-linear hover:border-gray-700">
-          Thoughts
-        </li>
+        {Cats?.map((category) => (
+          <li
+            key={category._id}
+            className="border-b pb-1 hover:text-gray-700 cursor-pointer  transform duration-100 ease-linear hover:border-gray-700"
+          >
+            {category?.title}
+          </li>
+        ))}
       </ul>
     </div>
   );

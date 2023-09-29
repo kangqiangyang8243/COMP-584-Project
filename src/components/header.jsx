@@ -1,7 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem(import.meta.env.VITE_TOKEN)) {
+      const users = JSON.parse(
+        localStorage.getItem(import.meta.env.VITE_TOKEN)
+      );
+      // console.log(user);
+      setUser(users);
+    }
+  }, []);
+
+  // console.log(user);
+
+  const handleExit = () => {
+    localStorage.removeItem(import.meta.env.VITE_TOKEN);
+    setUser(null);
+    navigate("/");
+  };
+
   return (
     <div>
       <div className=" border-b font-serif mx-auto p-4 pb-5 flex items-center justify-between">
@@ -13,12 +33,21 @@ function Header() {
 
         {/* right */}
         <ul className="text-xl list-none flex items-center gap-3 text-gray-500 ">
-          <Link to="/login">
+          <Link to="/createpost">
             <li className="li_text">Post</li>
           </Link>
-          <Link to="/login">
-            <li className="li_text">SignIn</li>
-          </Link>
+          {user ? (
+            <img
+              onClick={handleExit}
+              className="w-12 h-12 lg:w-16 lg:h-16 rounded-full cursor-pointer"
+              src={user?.avatar}
+              alt=""
+            />
+          ) : (
+            <Link to="/login">
+              <li className="li_text">SignIn</li>
+            </Link>
+          )}
         </ul>
       </div>
     </div>
