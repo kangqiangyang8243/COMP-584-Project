@@ -94,7 +94,7 @@ function Header() {
           />
           <button
             type="submit"
-            className="lg:hidden bg-gray-400 cursor-pointer text-slate-100 rounded-md p-2"
+            className="xl:hidden bg-gray-400 cursor-pointer text-slate-100 rounded-md p-2"
           >
             Submit
           </button>
