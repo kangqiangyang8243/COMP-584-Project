@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import H_Post from "./H_Post";
 
 function MainPosts() {
-  const [catposts, SetCatPosts] = useState();
+  const [catposts, SetCatPosts] = useState([]);
   const { search } = useLocation();
   //   console.log(search);
 
@@ -28,11 +28,20 @@ function MainPosts() {
         </div>
       ) : (
         <>
-          {catposts
-            ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            ?.map((post) => (
-              <H_Post key={post?._id} posts={post} />
-            ))}
+          {catposts?.length > 0 ? (
+            <>
+              {" "}
+              {catposts
+                ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                ?.map((post) => (
+                  <H_Post key={post?._id} posts={post} />
+                ))}
+            </>
+          ) : (
+            <div className="font-semibold font-serif text-gray-500 text-center">
+              Result Not Found
+            </div>
+          )}
         </>
       )}
     </div>
