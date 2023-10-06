@@ -50,6 +50,7 @@ function PostPage() {
 
               {posts
                 ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .slice(0, 3)
                 ?.map((post) => (
                   <RecentPost key={post?._id} posts={post} />
                 ))}
