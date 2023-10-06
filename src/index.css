@@ -6,7 +6,7 @@
 
     /* Header */
     .li_text {
-        @apply  cursor-pointer hover:underline underline-offset-8 decoration-slate-400 transform duration-100 ease-linear 
+        @apply  cursor-pointer hover:underline underline-offset-8 decoration-slate-400 transform duration-100 ease-linear text-sm lg:text-xl
     }
 
    
