@@ -30,6 +30,10 @@ function Header() {
     e.preventDefault();
     navigate(`/?search=${search}`);
     setSearch("");
+    setOpen(false);
+  };
+  const handleInputClick = (e) => {
+    e.stopPropagation(); // Prevent the click event from propagating to the parent element
   };
 
   return (
@@ -75,7 +79,7 @@ function Header() {
         </ul>
       </div>
 
-      {open ? (
+      {open && (
         <form
           onClick={handleSubmit}
           className="lg:w-3/4 h-12 lg:mx-auto mt-5 rounded-md mx-10"
@@ -85,14 +89,13 @@ function Header() {
             onChange={(e) => setSearch(e.target.value)}
             type="text"
             placeholder="Search"
+            onClick={handleInputClick}
             className="border-2 rounded-md w-full h-full shadow-md border-none p-2 focus:outline-black"
           />
           <button type="submit" className="hidden">
             submit
           </button>
         </form>
-      ) : (
-        <></>
       )}
     </div>
   );
