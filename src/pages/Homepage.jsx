@@ -4,7 +4,7 @@ import Categories from "../components/Categories";
 import CardView from "../components/cardView";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
-import MainPosts from "../components/mainPosts";
+import MainPosts from "../components/MainPost";
 
 function Homepage() {
   const [posts, SetPosts] = useState();
