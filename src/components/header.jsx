@@ -11,6 +11,8 @@ function Header() {
       );
       // console.log(user);
       setUser(users);
+    } else {
+      setUser(null);
     }
   }, []);
 
@@ -36,17 +38,19 @@ function Header() {
           <Link to="/createpost">
             <li className="li_text">Post</li>
           </Link>
-          {user ? (
-            <img
-              onClick={handleExit}
-              className="w-12 h-12 lg:w-16 lg:h-16 rounded-full cursor-pointer"
-              src={user?.avatar}
-              alt=""
-            />
-          ) : (
+          {!user ? (
             <Link to="/login">
               <li className="li_text">SignIn</li>
             </Link>
+          ) : (
+            <li>
+              <img
+                onClick={handleExit}
+                className="w-12 h-12 lg:w-16 lg:h-16 rounded-full cursor-pointer"
+                src={user?.avatar}
+                alt=""
+              />
+            </li>
           )}
         </ul>
       </div>

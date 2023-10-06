@@ -46,11 +46,19 @@ function Homepage() {
   return (
     <div className="max-w-7xl mx-auto flex flex-col gap-4">
       <div className="flex flex-row items-center gap-3 overflow-x-scroll px-5 py-3 pb-10 border-b-2">
-        {posts
-          ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-          ?.map((post) => (
-            <CardView key={post?._id} posts={post} />
-          ))}
+        {!posts ? (
+          <div className="font-semibold font-serif text-gray-500 mx-auto">
+            Loading.....
+          </div>
+        ) : (
+          <>
+            {posts
+              ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+              ?.map((post) => (
+                <CardView key={post?._id} posts={post} />
+              ))}
+          </>
+        )}
       </div>
 
       <div className="lg:grid grid-cols-5">
@@ -64,11 +72,21 @@ function Homepage() {
 
           <div className="flex flex-col-reverse    gap-5 m-2">
             <div className="col-span-4 lg:col-span-3 overflow-hidden ">
-              {catposts
-                ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                ?.map((post) => (
-                  <H_Post key={post?._id} posts={post} />
-                ))}
+              {!catposts ? (
+                <div className="font-semibold font-serif text-gray-500 text-center">
+                  Loading.....
+                </div>
+              ) : (
+                <>
+                  {catposts
+                    ?.sort(
+                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                    )
+                    ?.map((post) => (
+                      <H_Post key={post?._id} posts={post} />
+                    ))}
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -79,11 +97,22 @@ function Homepage() {
                 Recent Post
               </h3>
 
-              {posts
-                ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                ?.map((post) => (
-                  <RecentPost key={post?._id} posts={post} />
-                ))}
+              {!posts ? (
+                <div className="font-semibold font-serif text-gray-500 text-center">
+                  Loading.....
+                </div>
+              ) : (
+                <>
+                  {posts
+                    ?.sort(
+                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                    )
+                    .slice(0, 3)
+                    ?.map((post) => (
+                      <RecentPost key={post?._id} posts={post} />
+                    ))}
+                </>
+              )}
             </div>
 
             <Categories />
