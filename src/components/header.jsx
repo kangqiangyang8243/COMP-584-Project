@@ -82,7 +82,7 @@ function Header() {
       {open && (
         <form
           onClick={handleSubmit}
-          className="lg:w-3/4 h-12 lg:mx-auto mt-5 rounded-md mx-10"
+          className="lg:w-3/4 h-12 lg:mx-auto mt-5 rounded-lg shadow-md  mx-10 flex items-center border-2 p-2  focus-within:border-black"
         >
           <input
             value={search}
@@ -90,10 +90,13 @@ function Header() {
             type="text"
             placeholder="Search"
             onClick={handleInputClick}
-            className="border-2 rounded-md w-full h-full shadow-md border-none p-2 focus:outline-black"
+            className="w-full h-full border-none outline-none p-2 rounded-lg "
           />
-          <button type="submit" className="hidden">
-            submit
+          <button
+            type="submit"
+            className="lg:hidden bg-gray-400 cursor-pointer text-slate-100 rounded-md p-2"
+          >
+            Submit
           </button>
         </form>
       )}
