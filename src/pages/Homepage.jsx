@@ -5,10 +5,9 @@ import CardView from "../components/cardView";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import MainPosts from "../components/MainPost";
+import { useQuery } from "@tanstack/react-query";
 
 function Homepage() {
-  const [posts, SetPosts] = useState();
-
   const [searchParams] = useSearchParams();
 
   let catQuery = searchParams.get("catName");
@@ -19,32 +18,31 @@ function Homepage() {
 
   // console.log(search);
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      const res = await axios.get(import.meta.env.VITE_API_URL + "/posts/");
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["posts"],
+    queryFn: () =>
+      axios.get(import.meta.env.VITE_API_URL + "/posts").then((res) => {
+        return res.data;
+      }),
+  });
 
-      // console.log(res);
-      SetPosts(res.data);
-    };
-
-    fetchPost();
-  }, []);
+  // console.log("data:", data);
 
   return (
     <div className="max-w-7xl mx-auto flex flex-col gap-4">
       <div className="flex flex-row items-center gap-3 overflow-x-scroll px-5 py-3 pb-10 border-b-2">
-        {!posts ? (
+        {isLoading ? (
           <div className="font-semibold font-serif text-gray-500 mx-auto">
             Loading.....
           </div>
+        ) : error ? (
+          <div className="font-semibold font-serif text-gray-500 mx-auto">
+            Something Went Wrong!
+          </div>
         ) : (
-          <>
-            {posts
-              ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-              ?.map((post) => (
-                <CardView key={post?._id} posts={post} />
-              ))}
-          </>
+          data
+            ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .map((post) => <CardView key={post?._id} posts={post} />)
         )}
       </div>
 
@@ -69,22 +67,27 @@ function Homepage() {
               <h3 className="text-lg lg:text-2xl font-semibold pb-2 border-b ">
                 Recent Post
               </h3>
-
-              {!posts ? (
-                <div className="font-semibold font-serif text-gray-500 text-center">
+              {isLoading ? (
+                <div className="font-semibold font-serif text-gray-500 mx-auto">
                   Loading.....
                 </div>
+              ) : error ? (
+                <div className="font-semibold font-serif text-gray-500 mx-auto">
+                  Something Went Wrong!
+                </div>
+              ) : data ? (
+                data
+                  ?.sort(
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                  )
+                  ?.slice(0, 3)
+                  ?.map((postsddd) => (
+                    <RecentPost key={postsddd?._id} posts={postsddd} />
+                  ))
               ) : (
-                <>
-                  {posts
-                    ?.sort(
-                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-                    )
-                    .slice(0, 3)
-                    ?.map((post) => (
-                      <RecentPost key={post?._id} posts={post} />
-                    ))}
-                </>
+                <div className="font-semibold font-serif text-gray-500 mx-auto">
+                  Not Found!
+                </div>
               )}
             </div>
 

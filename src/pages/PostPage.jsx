@@ -1,45 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import RecentPost from "../components/RecentPost";
 import Categories from "../components/Categories";
 import PostContent from "../components/PostContent";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 function PostPage() {
   const { id } = useParams();
-  const [posts, SetPosts] = useState();
 
-  const [post, setPost] = useState();
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["single_post"],
+    queryFn: () =>
+      axios.get(import.meta.env.VITE_API_URL + `/posts/${id}`).then((res) => {
+        return res.data;
+      }),
+  });
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      const res = await axios.get(import.meta.env.VITE_API_URL + "/posts/");
+  const {
+    isLoading: postsLoading,
+    error: postsError,
+    data: postsData,
+  } = useQuery({
+    queryKey: ["posts"],
+    queryFn: () =>
+      axios.get(import.meta.env.VITE_API_URL + "/posts/").then((res) => {
+        return res.data;
+      }),
+  });
 
-      // console.log(res);
-      SetPosts(res.data);
-    };
-
-    fetchPost();
-  }, []);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const res = await axios.get(
-        import.meta.env.VITE_API_URL + `/posts/${id}`
-      );
-
-      // console.log(res.data);
-      setPost(res.data);
-    };
-
-    fetchPosts();
-  }, [id]);
-  // console.log(post);
   return (
     <div className="max-w-7xl mx-auto flex flex-col ">
       <div className="flex flex-col   lg:grid grid-cols-6 gap-5">
         <div className="col-span-4 ">
-          <PostContent posts={post} />
+          {isLoading ? (
+            <div className="font-semibold font-serif text-gray-500 mx-auto">
+              Loading.....
+            </div>
+          ) : error ? (
+            "Something went wrong!"
+          ) : (
+            <PostContent posts={data} />
+          )}
         </div>
         <div className="col-span-2 mt-5">
           <div className="gap-5 flex flex-col lg:gap-10 sticky top-[10px]">
@@ -48,12 +50,20 @@ function PostPage() {
                 Recent Post
               </h3>
 
-              {posts
-                ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                .slice(0, 3)
-                ?.map((post) => (
-                  <RecentPost key={post?._id} posts={post} />
-                ))}
+              {postsLoading ? (
+                <div className="font-semibold font-serif text-gray-500 mx-auto">
+                  Loading.....
+                </div>
+              ) : postsError ? (
+                "Something went wrong!"
+              ) : (
+                postsData
+                  ?.sort(
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                  )
+                  .slice(0, 3)
+                  ?.map((post) => <RecentPost key={post?._id} posts={post} />)
+              )}
             </div>
 
             <Categories />

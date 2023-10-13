@@ -1,23 +1,19 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AiFillCalendar } from "react-icons/ai";
 
 function PostContent({ posts }) {
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const res = await axios.get(
-        import.meta.env.VITE_API_URL + `/users/${posts?.userId}`
-      );
-
-      // console.log(res.data);
-      setUser(res.data);
-    };
-
-    fetchUser();
-  }, [posts]);
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["single_post_user"],
+    queryFn: () =>
+      axios
+        .get(import.meta.env.VITE_API_URL + `/users/${posts?.userId}`)
+        .then((res) => {
+          return res.data;
+        }),
+  });
 
   // console.log(user);
   return (
@@ -30,8 +26,25 @@ function PostContent({ posts }) {
         </h3>
         <div className="text-[20px] flex gap-10">
           <div className="flex items-center gap-2">
-            <img className="w-7 h-7 rounded-full" src={user?.avatar} alt="" />
-            <span>{user?.username}</span>
+            {isLoading ? (
+              <div className="font-semibold font-serif text-gray-500 mx-auto">
+                Loading.....
+              </div>
+            ) : error ? (
+              <div className="font-semibold font-serif text-gray-500 mx-auto">
+                Something went wrong!
+              </div>
+            ) : (
+              <>
+                {" "}
+                <img
+                  className="w-7 h-7 rounded-full"
+                  src={data?.avatar}
+                  alt=""
+                />
+                <span>{data?.username}</span>
+              </>
+            )}
           </div>
 
           <div className="flex items-center gap-2">
