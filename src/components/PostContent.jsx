@@ -3,6 +3,8 @@ import axios from "axios";
 import moment from "moment";
 import React from "react";
 import { AiFillCalendar } from "react-icons/ai";
+import Commens from "./Commens";
+import Comments from "./Commens";
 
 function PostContent({ posts }) {
   const { isLoading, error, data } = useQuery({
@@ -53,9 +55,11 @@ function PostContent({ posts }) {
           </div>
         </div>
 
-        <div>
+        <div className="border-b-2 pb-5">
           <p className="text-gray-600 text-xl md:text-3xl">{posts?.content}</p>
         </div>
+
+        <Comments />
       </div>
     </div>
   );

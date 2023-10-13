@@ -13,11 +13,6 @@ function Homepage() {
   let catQuery = searchParams.get("catName");
   let searchQuery = searchParams.get("search");
 
-  // console.log(searchParams.get("catName"));
-  // console.log(searchParams.get("search"));
-
-  // console.log(search);
-
   const { isLoading, error, data } = useQuery({
     queryKey: ["posts"],
     queryFn: () =>
@@ -42,7 +37,7 @@ function Homepage() {
         ) : (
           data
             ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            .map((post) => <CardView key={post?._id} posts={post} />)
+            ?.map((post) => <CardView key={post?._id} posts={post} />)
         )}
       </div>
 
@@ -81,8 +76,8 @@ function Homepage() {
                     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
                   )
                   ?.slice(0, 3)
-                  ?.map((postsddd) => (
-                    <RecentPost key={postsddd?._id} posts={postsddd} />
+                  ?.map((posts) => (
+                    <RecentPost key={posts?._id} posts={posts} />
                   ))
               ) : (
                 <div className="font-semibold font-serif text-gray-500 mx-auto">

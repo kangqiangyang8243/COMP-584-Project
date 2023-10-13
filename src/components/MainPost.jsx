@@ -5,44 +5,38 @@ import H_Post from "./H_Post";
 import { useQuery } from "@tanstack/react-query";
 
 function MainPosts() {
-  const [catposts, SetCatPosts] = useState([]);
   const { search } = useLocation();
-  // console.log(search);
 
-  // let search1 = search && null;
-
-  // console.log(search1);
+  const { isLoading, error, data, refetch } = useQuery({
+    queryKey: ["Search_posts"],
+    queryFn: () =>
+      axios
+        .get(import.meta.env.VITE_API_URL + "/posts/" + search)
+        .then((res) => res.data),
+  });
 
   useEffect(() => {
-    const fetchCatPost = async () => {
-      const res = await axios.get(
-        import.meta.env.VITE_API_URL + "/posts/" + search
-      );
-
-      // console.log(res);
-      SetCatPosts(res.data);
-    };
-
-    fetchCatPost();
+    refetch();
   }, [search]);
+
+  // console.log(data);
 
   // console.log(import.meta.env.VITE_API_URL + `/posts${search}`);
 
   return (
     <div>
-      {!catposts ? (
-        <div className="font-semibold font-serif text-gray-500 text-center">
+      {isLoading ? (
+        <div className="font-semibold font-serif text-gray-500 mx-auto">
           Loading.....
         </div>
+      ) : error ? (
+        <div className="font-semibold font-serif text-gray-500 mx-auto">
+          Something Went Wrong!
+        </div>
       ) : (
-        <>
-          {" "}
-          {catposts
-            ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            ?.map((post) => (
-              <H_Post key={post?._id} posts={post} />
-            ))}
-        </>
+        data
+          ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          ?.map((post) => <H_Post key={post?._id} posts={post} />)
       )}
     </div>
   );
