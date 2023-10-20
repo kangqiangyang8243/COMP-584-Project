@@ -3,15 +3,15 @@ import axios from "axios";
 import moment from "moment";
 import React from "react";
 import { AiFillCalendar } from "react-icons/ai";
-import Commens from "./Commens";
 import Comments from "./Commens";
 
 function PostContent({ posts }) {
+  const { userId } = posts;
   const { isLoading, error, data } = useQuery({
     queryKey: ["single_post_user"],
     queryFn: () =>
       axios
-        .get(import.meta.env.VITE_API_URL + `/users/${posts?.userId}`)
+        .get(import.meta.env.VITE_API_URL + `/users/${userId}`)
         .then((res) => {
           return res.data;
         }),
@@ -38,7 +38,6 @@ function PostContent({ posts }) {
               </div>
             ) : (
               <>
-                {" "}
                 <img
                   className="w-7 h-7 rounded-full"
                   src={data?.avatar}
@@ -59,7 +58,7 @@ function PostContent({ posts }) {
           <p className="text-gray-600 text-xl md:text-3xl">{posts?.content}</p>
         </div>
 
-        <Comments />
+        <Comments postId={posts._id} />
       </div>
     </div>
   );
