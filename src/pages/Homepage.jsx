@@ -25,7 +25,7 @@ function Homepage() {
 
   return (
     <div className="max-w-7xl mx-auto flex flex-col gap-4">
-      <div className="flex flex-row items-center gap-3 overflow-x-scroll px-5 py-3 pb-10 border-b-2">
+      <div className="flex flex-row items-center gap-3 overflow-x-scroll px-5 py-3 pb-10 border-b-2 scrollbar scrollbar-thumb-gray-300 scrollbar-track-gray-100">
         {isLoading ? (
           <div className="font-semibold font-serif text-gray-500 mx-auto">
             Loading.....
@@ -57,7 +57,7 @@ function Homepage() {
           </div>
         </div>
         <div className="col-span-2 ">
-          <div className="gap-5 flex flex-col lg:gap-10 sticky top-[10px]">
+          <div className="gap-5 flex flex-col lg:gap-10 sticky top-[120px]">
             <div className="p-4 rounded-md shadow-md flex flex-col gap-5">
               <h3 className="text-lg lg:text-2xl font-semibold pb-2 border-b ">
                 Recent Post

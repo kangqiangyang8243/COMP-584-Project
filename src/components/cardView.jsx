@@ -26,7 +26,7 @@ function cardView({ posts }) {
   return (
     <div
       onClick={handleChange}
-      className="font-serif p-4 min-w-[400px] lg:w-[400px] relative cursor-pointer transform duration-100 shadow-md rounded-lg  hover:shadow-xl group"
+      className="font-serif p-4 mt-28 min-w-[400px] lg:w-[400px] relative cursor-pointer transform duration-100 shadow-md rounded-lg  hover:shadow-xl group"
     >
       {isLoading ? (
         <div className="font-semibold font-serif text-gray-500 mx-auto">

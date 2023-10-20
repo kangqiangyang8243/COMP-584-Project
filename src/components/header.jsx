@@ -37,8 +37,8 @@ function Header() {
   };
 
   return (
-    <div>
-      <div className=" border-b font-serif mx-auto p-4 pb-5 flex items-center justify-between">
+    <div className="fixed bg-white z-50 w-full border-b-4 ">
+      <div className=" font-serif mx-auto p-4 pb-5 flex items-center justify-between">
         {/* left */}
 
         <h1
