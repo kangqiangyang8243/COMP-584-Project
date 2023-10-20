@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Comments({ postId }) {
   // console.log(postId);
@@ -19,7 +19,7 @@ function Comments({ postId }) {
   const [comment, SetComment] = useState();
   const [username, setUsername] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
-
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -72,13 +72,17 @@ function Comments({ postId }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutation.mutate({
-      postId: postId,
-      username: username,
-      userAvatar: userAvatar,
-      comment: comment,
-    });
-    refetch();
+    if (!username && !userAvatar) {
+      navigate("/login");
+    } else {
+      mutation.mutate({
+        postId: postId,
+        username: username,
+        userAvatar: userAvatar,
+        comment: comment,
+      });
+      refetch();
+    }
   };
   return (
     <div className="lg:mb-20 max-w-7xl space-y-5 w-full mx-auto">
@@ -112,8 +116,9 @@ function Comments({ postId }) {
           className="outline-none border-none w-full pl-4"
         />
         <button
+          // disable={(!username && !userAvatar) || !comment}
           type="submit"
-          className="p-3 bg-slate-400 rounded-tr-md rounded-br-md text-white"
+          className="p-3 bg-slate-400 rounded-tr-md rounded-br-md text-white disabled:cursor-not-allowed"
         >
           Submit
         </button>
