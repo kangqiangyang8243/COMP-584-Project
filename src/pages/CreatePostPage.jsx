@@ -78,7 +78,7 @@ function CreatePostPage() {
   };
 
   return (
-    <div className="max-w-7xl p-4 mx-auto w-full h-screen flex flex-col gap-3">
+    <div className="max-w-7xl p-4 mx-auto w-full h-screen flex flex-col gap-3 pt-28">
       {file ? (
         <img
           onClick={() => setFile()}

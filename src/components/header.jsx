@@ -82,7 +82,7 @@ function Header() {
       {open && (
         <form
           onClick={handleSubmit}
-          className="lg:w-3/4 h-12 lg:mx-auto mt-5 rounded-lg shadow-md  mx-10 flex items-center border-2 p-2  focus-within:border-black"
+          className="lg:w-3/4 h-12 lg:mx-auto mt-5 rounded-lg shadow-md  m-5 flex items-center border-2 p-2  focus-within:border-black"
         >
           <input
             value={search}

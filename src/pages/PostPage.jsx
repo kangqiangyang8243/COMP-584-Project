@@ -40,7 +40,11 @@ function PostPage() {
           ) : error ? (
             "Something went wrong!"
           ) : (
-            <PostContent posts={data} />
+            <PostContent
+              posts={data}
+              postId={data?._id}
+              userId={data?.userId}
+            />
           )}
         </div>
         <div className="col-span-2 mt-5">
