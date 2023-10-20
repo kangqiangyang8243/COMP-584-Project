@@ -49,7 +49,7 @@ function LoginPage() {
           import.meta.env.VITE_TOKEN,
           JSON.stringify(res.data.userWithoutPassword)
         );
-        toast.success("Register Success!");
+        toast.success("Login Success!");
         navigate("/");
       }
     } else {
