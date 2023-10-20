@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ReactTimeago from "react-timeago";
 
 function RecentPost({ posts }) {
   const [user, setUser] = useState();
@@ -51,11 +52,8 @@ function RecentPost({ posts }) {
           Something went wrong!
         </div>
       ) : (
-        <div
-          onClick={handleChange}
-          className="flex flex-col gap-4 cursor-pointer "
-        >
-          <div className="flex items-center gap-3 hover:shadow-md rounded-lg p-2 transform duration-100 ease-linear">
+        <div onClick={handleChange} className="flex  gap-4 cursor-pointer ">
+          <div className="w-full flex items-center gap-3 hover:shadow-md rounded-lg p-2 transform duration-100 ease-linear">
             <img
               className="w-12 h-12 lg:w-16 lg:h-16 rounded-full"
               src={
@@ -66,9 +64,17 @@ function RecentPost({ posts }) {
               alt=""
             />
 
-            <div>
-              <p className="font-semibold lg:text-lg">{user?.username}</p>
-              <p className="line-clamp-2 ">{posts?.title}</p>
+            <div className="flex items-center justify-between w-full">
+              <div>
+                {" "}
+                <p className="font-semibold lg:text-lg">{user?.username}</p>
+                <p className="line-clamp-2 ">{posts?.title}</p>
+              </div>
+
+              <ReactTimeago
+                className="text-sm text-gray-500 prs-4 "
+                date={posts?.createdAt}
+              />
             </div>
           </div>
         </div>
