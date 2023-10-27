@@ -98,7 +98,9 @@ function PostContent({ posts, userId, postId }) {
         </div>
 
         <div className="border-b-2 pb-5">
-          <p className="text-gray-600 text-xl md:text-3xl">{posts?.content}</p>
+          <p className="text-gray-600 text-xl md:text-3xl break-words">
+            {posts?.content}
+          </p>
         </div>
 
         <Comments postId={posts?._id} />

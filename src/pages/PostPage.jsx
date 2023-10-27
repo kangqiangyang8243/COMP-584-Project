@@ -24,7 +24,7 @@ function PostPage() {
   } = useQuery({
     queryKey: ["posts"],
     queryFn: () =>
-      axios.get(import.meta.env.VITE_API_URL + "/posts/").then((res) => {
+      axios.get(import.meta.env.VITE_API_URL + "/posts").then((res) => {
         return res.data;
       }),
   });

@@ -44,37 +44,44 @@ function CreatePostPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "sxct3o1ycomp584");
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "sxct3o1ycomp584");
+      const pic = await axios.post(
+        `https://api.cloudinary.com/v1_1/dj5qwihzu/upload`,
+        formData
+      );
 
-    const pic = await axios.post(
-      `https://api.cloudinary.com/v1_1/dj5qwihzu/upload`,
-      formData
-    );
+      const { url } = pic.data;
 
-    const { url } = pic.data;
+      // console.log(url);
 
-    // console.log(url);
+      try {
+        const newPost = {
+          title: title,
+          content: content,
+          img: url,
+          userId: user._id,
+          categories: catTitle,
+        };
 
-    try {
-      const newPost = {
-        title: title,
-        content: content,
-        img: url,
-        userId: user._id,
-        categories: catTitle,
-      };
-
-      await axios
-        .post(import.meta.env.VITE_API_URL + "/posts/", newPost)
-        .then((res) => {
-          toast.success("Post created successfully!");
-          navigate("/");
-        });
-    } catch (error) {
-      toast.error("An error occurred");
+        await axios
+          .post(import.meta.env.VITE_API_URL + "/posts/", newPost)
+          .then((res) => {
+            toast.success("Post created successfully!");
+            navigate("/");
+          });
+      } catch (error) {
+        toast.error("An error occurred");
+      }
+    } else {
+      toast.error("Picture is Required");
     }
+  };
+
+  const handleInputClick = (e) => {
+    e.stopPropagation(); // Prevent the click event from propagating to the parent element
   };
 
   return (
@@ -136,7 +143,16 @@ function CreatePostPage() {
               ))}
             </select>
           </div>
-          <button className="py-2 px-8 rounded-lg text-white ml-10 font-bold bg-red-600 hover:bg-red-500 active:bg-red-400">
+          <button
+            type="reset"
+            onClick={() => {
+              setFile(null);
+              setCatTitle("Web Project");
+              setTitle(null);
+              setContent("");
+            }}
+            className="py-2 px-8 rounded-lg text-white ml-10 font-bold bg-red-600 hover:bg-red-500 active:bg-red-400"
+          >
             Discard
           </button>
           <button
@@ -151,7 +167,7 @@ function CreatePostPage() {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Input You Descrition"
-          className="h-full w-full bg-transparent rounded-lg shadow-sm pb-[200px] placeholder:text-xl text-xl outline-none border p-4"
+          className="h-full w-full bg-transparent rounded-lg shadow-sm pb-[200px] placeholder:text-xl text-xl outline-none border p-4 mb-20"
         />
       </form>
     </div>

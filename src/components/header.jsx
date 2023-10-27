@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
+import axios from "axios";
 function Header() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
@@ -20,10 +21,15 @@ function Header() {
 
   // console.log(user);
 
-  const handleExit = () => {
-    localStorage.removeItem(import.meta.env.VITE_TOKEN);
-    setUser(null);
-    navigate("/");
+  const handleExit = async () => {
+    await axios
+      .put(import.meta.env.VITE_API_URL + `/users/${user?._id}`)
+      .then(() => {
+        localStorage.removeItem(import.meta.env.VITE_TOKEN);
+
+        setUser(null);
+        navigate("/");
+      });
   };
 
   const handleSubmit = (e) => {
@@ -68,6 +74,7 @@ function Header() {
             </Link>
           ) : (
             <li>
+              {" "}
               <img
                 onClick={handleExit}
                 className="w-12 h-12 lg:w-16 lg:h-16 rounded-full cursor-pointer"
