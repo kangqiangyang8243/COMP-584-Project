@@ -4,8 +4,7 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
 - Backend-End Repo: https://github.com/kangqiangyang8243/COMP_584_Backend
 - Project Features:
-  - User Register
-  - User SignIn & SignOut
+  - User auth (Register,SignIn & SignOut)
   - Post and Browser Blog
   - Make Comments on the Blog
   - Delete Blog
