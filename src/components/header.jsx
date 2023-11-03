@@ -2,11 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import axios from "axios";
+import Drawer from "react-modern-drawer";
+import { AiOutlineBook, AiOutlineMenu } from "react-icons/ai";
+import { TfiWrite } from "react-icons/tfi";
+
 function Header() {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
+
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const toggleDrawer = () => {
+    setIsDrawerOpen((prevState) => !prevState);
+  };
   useEffect(() => {
     if (localStorage.getItem(import.meta.env.VITE_TOKEN)) {
       const users = JSON.parse(
@@ -57,8 +66,8 @@ function Header() {
           Kangqiang Yang
         </h1>
 
-        {/* right */}
-        <ul className="text-xl list-none flex items-center gap-3 text-gray-500 ">
+        {/* screen lg right */}
+        <ul className="text-xl list-none  items-center gap-3 text-gray-500 hidden lg:inline-flex ">
           <li className="cursor-pointer  group">
             <BsSearch
               onClick={() => setOpen(!open)}
@@ -67,6 +76,9 @@ function Header() {
           </li>
           <Link to="/createpost">
             <li className="li_text">Post</li>
+          </Link>
+          <Link to="/bookKeeping">
+            <li className="li_text">BookKeeping</li>
           </Link>
           {!user ? (
             <Link to="/login">
@@ -83,6 +95,56 @@ function Header() {
               />
             </li>
           )}
+        </ul>
+
+        {/* screen below lg right */}
+        <ul className="text-xl list-none  items-center gap-3 text-gray-500 flex lg:hidden">
+          <li className="cursor-pointer  group">
+            <BsSearch
+              onClick={() => setOpen(!open)}
+              className="text-xl group-hover:text-3xl group-hover:text-black transform duration-100 ease-linear"
+            />
+          </li>
+
+          {!user ? (
+            <Link to="/login">
+              <li className="li_text">SignIn</li>
+            </Link>
+          ) : (
+            <li>
+              {" "}
+              <img
+                onClick={handleExit}
+                className="w-12 h-12 lg:w-16 lg:h-16 rounded-full cursor-pointer"
+                src={user?.avatar}
+                alt=""
+              />
+            </li>
+          )}
+
+          <li>
+            {" "}
+            <AiOutlineMenu onClick={toggleDrawer} />
+            <Drawer
+              open={isDrawerOpen}
+              onClose={toggleDrawer}
+              direction="right"
+              className="flex flex-col gap-4 p-2"
+            >
+              <Link to="/createpost">
+                <div className="w-full p-3 border-b-2 flex space-x-3">
+                  <TfiWrite className="w-7 h-7   cursor-pointer" />
+                  <span>Post</span>
+                </div>
+              </Link>
+              <Link to="/bookKeeping">
+                <div className="w-full p-3 border-b-2 flex space-x-3">
+                  <AiOutlineBook className="w-8 h-8  cursor-pointer" />
+                  <span>BookKeeping</span>
+                </div>
+              </Link>
+            </Drawer>
+          </li>
         </ul>
       </div>
 

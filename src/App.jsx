@@ -8,6 +8,9 @@ import LayoutPage from "./pages/LayoutPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreatePostPage from "./pages/CreatePostPage";
+import BookKeepingPage from "./pages/BookKeepingPage";
+//import styles 👇
+import "react-modern-drawer/dist/index.css";
 
 function App() {
   return (
@@ -17,6 +20,7 @@ function App() {
           <Route index element={<Homepage />} />
           <Route path="post/:id" element={<PostPage />} />
           <Route path="createpost" element={<CreatePostPage />} />
+          <Route path="bookKeeping" element={<BookKeepingPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
