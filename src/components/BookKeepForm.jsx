@@ -1,8 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import axios from "axios";
 
 function BookKeepForm() {
-  const nameRef = useRef("");
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [amount, setAmount] = useState("");
@@ -10,6 +16,7 @@ function BookKeepForm() {
 
   const [days, setDays] = useState(0);
   const [total, setTotal] = useState(0);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (fromDate !== "" && toDate !== "") {
@@ -41,8 +48,42 @@ function BookKeepForm() {
     }
   };
 
+  const mutation = useMutation({
+    mutationFn: async (newkeep) => {
+      return await axios
+        .post(import.meta.env.VITE_API_URL + "/bookkeeping", newkeep)
+        .then((res) => {
+          return res.data;
+        });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["bookkeep_post"]);
+      toast.success("bookKeep posted successfully!");
+      setFromDate("");
+      setToDate("");
+      setName("");
+      setAmount("");
+      setDays("");
+      setTotal("");
+    },
+    onError: (err) => {
+      toast.error(err.response.data);
+    },
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (handleInput()) {
+      mutation.mutate({
+        name: name,
+        From: fromDate,
+        To: toDate,
+        DailyAmount: amount,
+        TotalDays: days,
+        TotalPrice: total,
+      });
+    }
   };
 
   return (
