@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-query";
 import axios from "axios";
 
-function BookKeepForm() {
+function BookKeepForm({ userId }) {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [amount, setAmount] = useState("");
@@ -76,6 +76,7 @@ function BookKeepForm() {
 
     if (handleInput()) {
       mutation.mutate({
+        userId,
         name: name,
         From: fromDate,
         To: toDate,
