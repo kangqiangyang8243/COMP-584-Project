@@ -39,6 +39,7 @@ function cardView({ posts }) {
       ) : (
         <>
           <img
+            loading="lazy"
             src={posts?.img}
             className="cursor-pointer h-[300px] object-cover w-full rounded-lg group-hover:scale-110 duration-150 transform ease-linear"
             alt=""
@@ -51,6 +52,7 @@ function cardView({ posts }) {
             <div className="flex items-center gap-2">
               <div className="rounded-full border-2 p-1">
                 <img
+                  loading="lazy"
                   className="object-cover w-10 h-10 rounded-full"
                   src={data?.avatar}
                   alt=""

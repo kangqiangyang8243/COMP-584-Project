@@ -20,7 +20,7 @@ function BookKeepingPage() {
   }, []);
   // console.log(user?._id);
   return (
-    <div className="pt-[100px] bg-slate-50 w-full">
+    <div className="pt-[100px] bg-slate-50 w-full relative">
       <div className="max-w-7xl mx-auto flex flex-col gap-10 p-10">
         {/* record form */}
         <BookKeepForm userId={user?._id} />

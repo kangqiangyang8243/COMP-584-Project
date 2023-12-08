@@ -51,6 +51,7 @@ function RecentPost({ posts }) {
           <div className="w-full flex items-center gap-3 hover:shadow-md rounded-lg p-2 transform duration-100 ease-linear">
             <div className="border-2 rounded-full w-14 h-14  relative flex justify-center items-center">
               <img
+                loading="lazy"
                 className="w-12 h-12  rounded-full object-cover"
                 src={
                   data?.avatar

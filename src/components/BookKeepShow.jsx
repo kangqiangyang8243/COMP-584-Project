@@ -9,12 +9,12 @@ import {
 import moment from "moment";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
+
+import BookKeepUpdate from "./BookKeepUpdate";
 
 function BookKeepShow({ userId }) {
   const queryClient = useQueryClient();
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   const deleteBookkeeping = useMutation(
     (id) => axios.delete(import.meta.env.VITE_API_URL + `/bookkeeping/${id}`),
@@ -80,12 +80,8 @@ function BookKeepShow({ userId }) {
                     >
                       Delete
                     </button>
-                    <button
-                      onClick={() => setOpen(true)}
-                      className="w-30 p-1 text-white bg-green-400 text-center rounded-lg shadow-sm hover:shadow-lg text-md"
-                    >
-                      Update
-                    </button>
+
+                    <BookKeepUpdate data={data} />
                   </td>
                 </tr>
               ))}
@@ -93,12 +89,6 @@ function BookKeepShow({ userId }) {
           )}
         </tbody>
       </table>
-
-      {open && (
-        <Popup trigger={<button> Trigger</button>} position="right center">
-          <div>Popup content here !!</div>
-        </Popup>
-      )}
     </div>
   );
 }

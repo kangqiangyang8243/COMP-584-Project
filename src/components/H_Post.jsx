@@ -56,6 +56,7 @@ function H_Post({ posts }) {
         >
           <div key={posts?._id}>
             <img
+              loading="lazy"
               src={posts?.img}
               className="w-full h-[200px] md:h-[400px]  object-cover "
               alt=""
@@ -67,6 +68,7 @@ function H_Post({ posts }) {
               <div className="text-[20px] flex gap-10">
                 <div className="flex items-center gap-2">
                   <img
+                    loading="lazy"
                     className="w-7 h-7 rounded-full"
                     src={user?.avatar}
                     alt=""
