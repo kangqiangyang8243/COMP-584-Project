@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import Modal from "react-modal";
 
 import BookKeepUpdate from "./BookKeepUpdate";
 

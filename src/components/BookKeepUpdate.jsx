@@ -10,7 +10,6 @@ import axios from "axios";
 import moment from "moment";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import Modal from "react-modal";
 
 function BookKeepUpdate({ data }) {
   const [fromDate, setFromDate] = useState();
