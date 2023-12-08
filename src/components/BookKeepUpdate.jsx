@@ -10,6 +10,7 @@ import axios from "axios";
 import moment from "moment";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import Modal from "react-modal";
 
 function BookKeepUpdate({ data }) {
   const [fromDate, setFromDate] = useState();
@@ -61,13 +62,14 @@ function BookKeepUpdate({ data }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["bookkeep_post_update"]);
-      toast.success("bookKeep posted successfully!");
       setFromDate("");
       setToDate("");
       setName("");
       setAmount("");
       setDays("");
       setTotal("");
+      window.location.reload(true);
+      toast.success("bookKeep posted successfully!");
     },
     onError: (err) => {
       toast.error(err.response.data);
@@ -89,108 +91,81 @@ function BookKeepUpdate({ data }) {
   };
 
   return (
-    <Popup
-      modal
-      trigger={
-        <button className="w-30 p-1 text-white bg-green-400 text-center rounded-lg shadow-sm hover:shadow-lg text-md">
-          Update
-        </button>
-      }
-    >
-      {(close) => (
-        <div className="w-full h-[600px] md:border-4 bg-white rounded-lg font-mono md:p-5 flex flex-col">
-          <div className="flex flex-col items-center justify-center border-b lg:space-y-3 p-2 relative">
-            <h3 className="text-xl lg:text-3xl  font-semibold">Update</h3>
-            <button
-              className="text-2xl lg:text-3xl absolute right-0 bottom-5 md:-right-2 md:bottom-10"
-              onClick={close}
-            >
-              &times;
-            </button>
-          </div>
+    <form onSubmit={handleSubmit} action="" className="flex flex-col p-5 gap-5">
+      <div className="flex flex-col space-y-3">
+        <label htmlFor="" className="text-md lg:text-2xl">
+          Name:
+        </label>
+        <input
+          type="text"
+          placeholder="Input the Name"
+          required
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+          className="border rounded-md p-2 outline-gray-400 text-md lg:text-lg"
+        />
+      </div>
 
-          <form
-            onSubmit={handleSubmit}
-            action=""
-            className="flex flex-col p-5 gap-5"
-          >
-            <div className="flex flex-col space-y-3">
-              <label htmlFor="" className="text-md lg:text-2xl">
-                Name:
-              </label>
-              <input
-                type="text"
-                placeholder="Input the Name"
-                required
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-                className="border rounded-md p-2 outline-gray-400 text-md lg:text-lg"
-              />
-            </div>
+      <div className="flex flex-col space-y-3">
+        <label htmlFor="" className="text-md lg:text-2xl">
+          From:
+        </label>
+        <input
+          type="date"
+          required
+          value={fromDate || ""}
+          onChange={(e) => {
+            setFromDate(e.target.value);
+          }}
+          className="border rounded-md p-2 outline-gray-400 text-md lg:text-lg"
+        />
+      </div>
 
-            <div className="flex flex-col space-y-3">
-              <label htmlFor="" className="text-md lg:text-2xl">
-                From:
-              </label>
-              <input
-                type="date"
-                required
-                value={fromDate || ""}
-                onChange={(e) => {
-                  setFromDate(e.target.value);
-                }}
-                className="border rounded-md p-2 outline-gray-400 text-md lg:text-lg"
-              />
-            </div>
+      <div className="flex flex-col space-y-3">
+        <label htmlFor="" className="text-md lg:text-2xl">
+          To:
+        </label>
+        <input
+          type="date"
+          required
+          value={toDate || ""}
+          onChange={(e) => {
+            setToDate(e.target.value);
+          }}
+          className="border rounded-md p-2 outline-gray-400 text-md lg:text-lg"
+        />
+      </div>
 
-            <div className="flex flex-col space-y-3">
-              <label htmlFor="" className="text-md lg:text-2xl">
-                To:
-              </label>
-              <input
-                type="date"
-                required
-                value={toDate || ""}
-                onChange={(e) => {
-                  setToDate(e.target.value);
-                }}
-                className="border rounded-md p-2 outline-gray-400 text-md lg:text-lg"
-              />
-            </div>
+      <div className="flex flex-col space-y-3">
+        <label htmlFor="" className="text-md lg:text-2xl">
+          Daily Amount:
+        </label>
+        <input
+          type="number"
+          required
+          value={amount}
+          min={0}
+          onChange={(e) => {
+            setAmount(e.target.value);
+          }}
+          className="w-full border rounded-md p-2 outline-gray-400 text-md lg:text-lg"
+        />
+      </div>
 
-            <div className="flex flex-col space-y-3">
-              <label htmlFor="" className="text-md lg:text-2xl">
-                Daily Amount:
-              </label>
-              <input
-                type="number"
-                required
-                value={amount}
-                min={0}
-                onChange={(e) => {
-                  setAmount(e.target.value);
-                }}
-                className="w-full border rounded-md p-2 outline-gray-400 text-md lg:text-lg"
-              />
-            </div>
+      <div className="flex  space-x-3 text-sm">
+        <span>Days:{days}</span>
+        <span>Total:{total}</span>
+      </div>
 
-            <div className="flex  space-x-3 text-sm">
-              <span>Days:{days}</span>
-              <span>Total:{total}</span>
-            </div>
-
-            <button
-              type="submit"
-              className="w-32 p-2 text-white bg-green-400 text-center rounded-lg shadow-sm hover:shadow-lg"
-            >
-              Update
-            </button>
-          </form>
-        </div>
-      )}
-    </Popup>
+      <button
+        type="submit"
+        className="w-32 p-2 text-white bg-green-400 text-center rounded-lg shadow-sm hover:shadow-lg"
+      >
+        Update
+      </button>
+    </form>
   );
 }
 

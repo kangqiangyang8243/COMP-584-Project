@@ -9,12 +9,14 @@ import {
 import moment from "moment";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import Modal from "react-modal";
 
 import BookKeepUpdate from "./BookKeepUpdate";
 
 function BookKeepShow({ userId }) {
   const queryClient = useQueryClient();
-  // const [open, setOpen] = useState(false);
 
   const deleteBookkeeping = useMutation(
     (id) => axios.delete(import.meta.env.VITE_API_URL + `/bookkeeping/${id}`),
@@ -80,8 +82,32 @@ function BookKeepShow({ userId }) {
                     >
                       Delete
                     </button>
-
-                    <BookKeepUpdate data={data} />
+                    <Popup
+                      trigger={
+                        <button className="w-30 p-1 text-white bg-green-400 text-center rounded-lg shadow-sm hover:shadow-lg text-md">
+                          Update
+                        </button>
+                      }
+                      modal
+                      nested
+                    >
+                      {(close) => (
+                        <div className="md:border-4 bg-white rounded-lg font-mono md:p-5 flex flex-col">
+                          <div className="flex flex-col items-center justify-center border-b lg:space-y-3 p-2 relative">
+                            <h3 className="text-xl lg:text-3xl  font-semibold">
+                              Update
+                            </h3>
+                            <button
+                              className="text-2xl lg:text-3xl absolute right-0 bottom-5 md:-right-2 md:bottom-10"
+                              onClick={close}
+                            >
+                              &times;
+                            </button>
+                          </div>
+                          <BookKeepUpdate data={data} />
+                        </div>
+                      )}
+                    </Popup>
                   </td>
                 </tr>
               ))}
