@@ -5,11 +5,16 @@ This template provides a minimal setup to get React working in Vite with HMR and
 - Backend-End Repo: https://github.com/kangqiangyang8243/COMP_584_Backend
 - Project Features:
   - User auth (Register,SignIn & SignOut)
-  - Post and Browser Blog
-  - Make Comments on the Blog
-  - Delete Blog
-  - Check User is Online or not
-  - Search Blogs with keywords or Categories
+  - Blog post
+    - Post and Browser Blog
+    - Make Comments on the Blog
+    - Delete Blog
+    - Check User is Online or not
+    - Search Blogs with keywords or Categories
+   
+  - Book Keeping Function
+      - user can create their own book keeping record
+      - user can delete and update the book keep record
     
   
 
