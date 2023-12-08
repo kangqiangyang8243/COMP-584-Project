@@ -98,11 +98,11 @@ function BookKeepUpdate({ data }) {
       }
     >
       {(close) => (
-        <div className="w-full border-4 bg-white rounded-lg font-mono p-5 flex flex-col">
-          <div className="flex flex-col items-center justify-center border-b space-y-3 pb-5 relative">
-            <h3 className="text-3xl font-semibold">Update</h3>
+        <div className="w-full h-[600px] md:border-4 bg-white rounded-lg font-mono md:p-5 flex flex-col">
+          <div className="flex flex-col items-center justify-center border-b lg:space-y-3 p-2 relative">
+            <h3 className="text-xl lg:text-3xl  font-semibold">Update</h3>
             <button
-              className="text-3xl absolute -right-2 bottom-10"
+              className="text-2xl lg:text-3xl absolute right-0 bottom-5 md:-right-2 md:bottom-10"
               onClick={close}
             >
               &times;
@@ -115,7 +115,7 @@ function BookKeepUpdate({ data }) {
             className="flex flex-col p-5 gap-5"
           >
             <div className="flex flex-col space-y-3">
-              <label htmlFor="" className="text-2xl">
+              <label htmlFor="" className="text-md lg:text-2xl">
                 Name:
               </label>
               <input
@@ -126,12 +126,12 @@ function BookKeepUpdate({ data }) {
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
-                className="border rounded-md p-2 outline-gray-400 text-lg"
+                className="border rounded-md p-2 outline-gray-400 text-md lg:text-lg"
               />
             </div>
 
             <div className="flex flex-col space-y-3">
-              <label htmlFor="" className="text-2xl">
+              <label htmlFor="" className="text-md lg:text-2xl">
                 From:
               </label>
               <input
@@ -141,12 +141,12 @@ function BookKeepUpdate({ data }) {
                 onChange={(e) => {
                   setFromDate(e.target.value);
                 }}
-                className="border rounded-md p-2 outline-gray-400 text-lg"
+                className="border rounded-md p-2 outline-gray-400 text-md lg:text-lg"
               />
             </div>
 
             <div className="flex flex-col space-y-3">
-              <label htmlFor="" className="text-2xl">
+              <label htmlFor="" className="text-md lg:text-2xl">
                 To:
               </label>
               <input
@@ -156,12 +156,12 @@ function BookKeepUpdate({ data }) {
                 onChange={(e) => {
                   setToDate(e.target.value);
                 }}
-                className="border rounded-md p-2 outline-gray-400 text-lg"
+                className="border rounded-md p-2 outline-gray-400 text-md lg:text-lg"
               />
             </div>
 
             <div className="flex flex-col space-y-3">
-              <label htmlFor="" className="text-2xl">
+              <label htmlFor="" className="text-md lg:text-2xl">
                 Daily Amount:
               </label>
               <input
@@ -172,11 +172,11 @@ function BookKeepUpdate({ data }) {
                 onChange={(e) => {
                   setAmount(e.target.value);
                 }}
-                className="border rounded-md p-2 outline-gray-400 text-lg"
+                className="w-full border rounded-md p-2 outline-gray-400 text-md lg:text-lg"
               />
             </div>
 
-            <div className="flex  space-x-3">
+            <div className="flex  space-x-3 text-sm">
               <span>Days:{days}</span>
               <span>Total:{total}</span>
             </div>

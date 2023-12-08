@@ -73,7 +73,7 @@ function BookKeepShow({ userId }) {
                   <td className="border p-1">{data?.DailyAmount}</td>
                   <td className="border p-1">{data?.TotalDays}</td>
                   <td className="border p-1">{data?.TotalPrice}</td>
-                  <td className="border p-1">
+                  <td className="border p-1 space-y-2 space-x-0 md:space-x-3 lg:space-y-0">
                     <button
                       onClick={() => handleDelete(data?._id)}
                       className="w-30 p-1 text-white bg-red-400 text-center rounded-lg shadow-sm hover:shadow-lg text-md"
