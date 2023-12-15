@@ -3,7 +3,11 @@
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 - Backend-End Repo: https://github.com/kangqiangyang8243/COMP_584_Backend
+- Sample Account for login
+  - Yang
+  - Yang123456     
 - Project Features:
+  - Fully Responsive Page (web Mobile...)   
   - User auth (Register,SignIn & SignOut)
   - Blog post
     - Post and Browser Blog
@@ -13,8 +17,8 @@ This template provides a minimal setup to get React working in Vite with HMR and
     - Search Blogs with keywords or Categories
    
   - Book Keeping Function
-      - user can create their own book keeping record
-      - user can delete and update the book keep record
+      - user can create their own bookkeeping record
+      - user can delete and update the bookkeep record
     
   
 
